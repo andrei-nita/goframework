@@ -1,0 +1,22 @@
+{
+  "mode": "dev",
+  "dev": {
+    "port": ":8080",
+    "port_ssl": ":8443",
+    "use_ssl": true,
+    "cache_static_files": false,
+    "cache_templates": false
+  },
+  "prod": {
+    "user" : "root",
+    "domain": "domain.com",
+    "ip": "172.105.130.233",
+    "password": "ZXwvjA#ttgGqq4F",
+    "port": ":80",
+    "port_ssl": ":443",
+    "use_ssl": true,
+    "cache_static_files": true,
+    "cache_templates": true
+  },
+  "csrf": "13bytelongkey23bytelongkey123sei"
+}

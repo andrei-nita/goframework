@@ -1,0 +1,10 @@
+GET https://localhost:8443/
+Accept: text/html
+
+### GET request instead of POST
+GET https://localhost:8443/csrf-safe
+Accept: text/html
+
+### POST without csrf tocken
+POST https://localhost:8443/csrf-safe
+Accept: text/html

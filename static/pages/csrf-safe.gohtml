@@ -1,0 +1,27 @@
+{{define "csrf-safe"}}
+
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        {{block "meta" .}}{{end}}
+        {{block "social" .}}{{end}}
+        {{block "pwa" .}}{{end}}
+        <link rel="stylesheet" href="/static/public/reset.css">
+        <link rel="stylesheet" href="/static/public/styles.css">
+    </head>
+    <body>
+
+    {{template "nav1" .}}
+
+    <br>
+    <h1 style="padding: 10px">✔ ok</h1>
+
+    {{template "footer1" .}}
+
+    <script src="/static/public/src.js"></script>
+    <script src="/static/public/scripts.js"></script>
+
+    </body>
+    </html>
+
+{{end}}

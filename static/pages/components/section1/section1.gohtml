@@ -1,0 +1,11 @@
+{{define "section1"}}
+    <section class="section1">
+        <h1>Go Boilerplate!</h1>
+        <p>Project on <a href="https://github.com/andrei-nita/goboilerplate">github</a></p>
+
+        <form action="/csrf-safe" method="post">
+            {{ .csrfField }}
+            <button class="button" type="submit">Test CSRF</button>
+        </form>
+    </section>
+{{end}}

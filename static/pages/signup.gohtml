@@ -1,0 +1,121 @@
+{{define "signup"}}
+
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        {{block "meta" .}}{{end}}
+        {{block "social" .}}{{end}}
+        {{block "pwa" .}}{{end}}
+        <link rel="stylesheet" href="/static/public/reset.css">
+        <link rel="stylesheet" href="/static/public/styles.css">
+        <style>
+            form {
+                width: 300px;
+                padding: 1rem;
+                border: 1px solid #ccc;
+                border-radius: 5px;
+                background-color: #fff;
+                box-shadow: 0 0 5px #ccc;
+                margin: 20px auto 0;
+            }
+            h2 {
+                font-weight: normal;
+                font-size: 28px;
+                margin: 0 0 20px;
+            }
+            form div {
+                margin-bottom: 10px;
+                color: #777;
+            }
+            input {
+                border: 1px solid #ccc;
+                border-radius: 3px;
+                padding: 5px;
+                margin-bottom: 10px;
+            }
+            input:focus {
+                border: 1px solid #aaa;
+            }
+            .error {
+                color: rgb(255, 0, 0, 0.8);
+                font-weight: bold;
+                display: block;
+            }
+            button {
+                border: 1px solid #ccc;
+                border-radius: 3px;
+                padding: 5px;
+                margin-bottom: 10px;
+            }
+        </style>
+    </head>
+    <body>
+
+    {{template "nav1" .}}
+
+    <form role="form" action="/signup" method="post">
+        <h2>Signup</h2>
+        <div>Sign up for an account below</div>
+
+        {{.csrfField}}
+        <label for="name">Name:</label>
+        <p>
+            {{if .errName}}
+                <span class="error">{{.errName}}</span>
+            {{end}}
+            <input id="name" type="text" name="name" placeholder="Name" autofocus {{if .user.Name}}value="{{.user.Name}}"{{end}}>
+        </p>
+        <label for="email">Email:</label>
+        <p>
+            {{if .errEmail}}
+                <span class="error">{{.errEmail}}</span>
+            {{end}}
+            <input id="email" type="email" name="email" placeholder="Email" {{if .user.Email}}value="{{.user.Email}}"{{end}}>
+        </p>
+        <label for="password">Password:</label>
+        <p>
+            {{if .errPassword}}
+                <span class="error">{{.errPassword}}</span>
+            {{end}}
+            <input id="password" type="password" name="password" placeholder="Password">
+        </p>
+        <button type="submit">Sign up</button>
+    </form>
+
+    <script src="/static/public/src.js"></script>
+    <script src="/static/public/scripts.js"></script>
+
+    {{if IsDev}}
+        <script>
+            const wsProtocol = location.protocol === 'https:' ? 'wss:' : 'ws:';
+            const wsAddress = wsProtocol + "//" + location.host + "/" + "__livereload";
+            const socket = new WebSocket(wsAddress);
+            socket.onopen = function (evt) {
+                console.log("Connection open ...");
+                socket.send("Ciao");
+            };
+            socket.onmessage = function (event) {
+                if (event.data === "reload") {
+                    socket.close();
+                    location.reload();
+                } else if (event.data === "no reload") {
+                    socket.send("")
+                } else {
+                    console.log("event:" + event.data)
+                    socket.send("")
+                }
+            };
+
+            socket.onclose = function (event) {
+                console.log("Connection closed.");
+            };
+
+            window.onbeforeunload = function () {
+                socket.close();
+            }
+        </script>
+    {{end}}
+
+    </body>
+    </html>
+{{end}}

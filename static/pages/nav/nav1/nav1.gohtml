@@ -1,0 +1,15 @@
+{{define "nav1"}}
+    <nav class="topnav" id="myTopnav">
+        <a href="/">Home</a>
+        <a href="/api">API</a>
+        <a href="/debug/statsviz/">Stats</a>
+        {{if .isAuth}}
+            <a href="/users">Users</a>
+            <a href="/logout">Logout</a>
+        {{else}}
+            <a href="/login">Login</a>
+            <a href="/signup">Signup</a>
+        {{end}}
+        <a id="menuBtn" href="javascript:void(0);" style="font-size:15px;" class="icon">&#9776;</a>
+    </nav>
+{{end}}

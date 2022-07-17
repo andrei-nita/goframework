@@ -1,0 +1,59 @@
+{{define "users"}}
+
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        {{block "meta" .}}{{end}}
+        {{block "social" .}}{{end}}
+        {{block "pwa" .}}{{end}}
+        <link rel="stylesheet" href="/static/public/reset.css">
+        <link rel="stylesheet" href="/static/public/styles.css">
+    </head>
+    <body>
+    {{template "nav1" .}}
+
+    {{if .users}}
+        <ul>
+            {{ range .users }}
+                <li>{{ .Email }}</li>
+            {{ end}}
+        </ul>
+    {{end}}
+
+    <script src="/static/public/src.js"></script>
+    <script src="/static/public/scripts.js"></script>
+
+    {{if IsDev}}
+        <script>
+            const wsProtocol = location.protocol === 'https:' ? 'wss:' : 'ws:';
+            const wsAddress = wsProtocol + "//" + location.host + "/" + "__livereload";
+            const socket = new WebSocket(wsAddress);
+            socket.onopen = function (evt) {
+                console.log("Connection open ...");
+                socket.send("Ciao");
+            };
+            socket.onmessage = function (event) {
+                if (event.data === "reload") {
+                    socket.close();
+                    location.reload();
+                } else if (event.data === "no reload") {
+                    socket.send("")
+                } else {
+                    console.log("event:" + event.data)
+                    socket.send("")
+                }
+            };
+
+            socket.onclose = function (event) {
+                console.log("Connection closed.");
+            };
+
+            window.onbeforeunload = function () {
+                socket.close();
+            }
+        </script>
+    {{end}}
+
+    </body>
+    </html>
+{{end}}
